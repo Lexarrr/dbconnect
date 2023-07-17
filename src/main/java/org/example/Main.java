@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
 public class Main {
 
     public static void main(String[] args) throws SQLException {
@@ -75,10 +77,11 @@ public class Main {
         ResultSet rsPass = null;
 
 
+        ArrayList<Passenger> passengers = null;
         try {
             rsPass = con.createStatement().executeQuery(pass);
 
-            ArrayList<Passenger> passengers = new ArrayList<Passenger>();
+            passengers = new ArrayList<Passenger>();
             while (rsPass.next()) {
                 int id = rsPass.getInt(1);
                 String name = rsPass.getString(2);
@@ -87,8 +90,7 @@ public class Main {
                 countpassenger++;
 
             }
-//                Passenger psw = null;
-//            Arrays.sort(passengers.toArray(new Integer[]{psw.weight}));
+            Passenger psw = passengers.get(3);
 
 
             System.out.println("Count of Passenger: " + countpassenger);
@@ -96,7 +98,8 @@ public class Main {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return null;
+
+        return passengers;
     }
 
     public static ArrayList<Kayak> callListOfKayak(Connection con) {
@@ -105,10 +108,11 @@ public class Main {
         int countkayak = 0;
 
         ResultSet rsKayak = null;
+        ArrayList<Kayak> kayaks = null;
         try {
             rsKayak = con.createStatement().executeQuery(kayak);
 
-            ArrayList<Kayak> kayaks = new ArrayList<Kayak>();
+            kayaks = new ArrayList<Kayak>();
             while (rsKayak.next()) {
                 int id = rsKayak.getInt(1);
                 int max_weight = rsKayak.getInt(2);
@@ -122,7 +126,7 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        return null;
+        return kayaks;
     }
 
     public static void insertPassInKayak(Connection con,
@@ -131,7 +135,7 @@ public class Main {
 
         String s = "";
         Passenger ifw = null;
-        Kayak imw = kayakArrayList.get(kayakArrayList.size() -1);
+        Kayak imw = kayakArrayList.get(kayakArrayList.size() - 1);
         if (passengerArrayList != null && !passengerArrayList.isEmpty()) {
             ifw = passengerArrayList.get(passengerArrayList.size() - 1);
 
@@ -142,35 +146,34 @@ public class Main {
 ////            System.out.println(ifw);
 //
 //        }
+        int id_k;
+        int id_p1;
+        int p1_w = 0;
+        int id_p2 = 0;
 
+        ArrayList<PassInKayak> passInKayakArrayList = new ArrayList<PassInKayak>();
+        for (int i = 0; i < kayakArrayList.size(); i++) { //перебор лодок
+            for (int j = 0; j < passengerArrayList.size(); j++) { // перебор пассажиров
+                if (ifw != null && ifw.weight <= imw.max_weight) {
+                    id_k = imw.id;
+                    id_p1 = ifw.id;
+                    p1_w = ifw.weight;
+                    j++;
+                    if (abs(ifw.weight - p1_w) < imw.max_weight) {
+                        id_p2 = ifw.id;
+                    } else {
+                        i++;
+                    }
+                    passInKayakArrayList.add(new PassInKayak(id_k, id_p1, id_p2));
+                    System.out.println(passInKayakArrayList);
+                }
 
-        for (int i = imw.id; i < imw.max_weight; i++) {
-            if (ifw != null && ifw.weight <= imw.max_weight) {
-                ArrayList<PassInKayak> passInKayakArrayList = new ArrayList<PassInKayak>();
-                int id_k = imw.id;
-                int id_p1 = ifw.id;
-                int id_p2 = ifw.id;
-                passInKayakArrayList.add(new PassInKayak(id_k, id_p1, id_p2));
-                System.out.println(passengerArrayList);
             }
-
 
         }
     }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // for (int i = 0; i < rs.getInt(1); i++) {
