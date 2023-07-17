@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class Main {
 
@@ -72,7 +70,7 @@ public class Main {
 
     public static ArrayList<Passenger> callListOfPass(Connection con) {
 
-        String pass = "SELECT id, fio, weight FROM passenger;";
+        String pass = "SELECT id, fio, weight FROM passenger order by weight;";
         int countpassenger = 0;
         ResultSet rsPass = null;
 
@@ -89,11 +87,11 @@ public class Main {
                 countpassenger++;
 
             }
-                Passenger psw = null;
-            Arrays.sort(passengers.toArray(new Integer[]{psw.weight}));
+//                Passenger psw = null;
+//            Arrays.sort(passengers.toArray(new Integer[]{psw.weight}));
 
 
-            System.out.println("Count of Passenger: " +countpassenger);
+            System.out.println("Count of Passenger: " + countpassenger);
             System.out.println(passengers);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -103,7 +101,7 @@ public class Main {
 
     public static ArrayList<Kayak> callListOfKayak(Connection con) {
 
-        String kayak = "SELECT id, max_weight FROM kayak where max_weight > 0;";
+        String kayak = "SELECT id, max_weight FROM kayak where max_weight > 0 order by max_weight;";
         int countkayak = 0;
 
         ResultSet rsKayak = null;
@@ -132,21 +130,32 @@ public class Main {
                                          ArrayList<Kayak> kayakArrayList) {
 
         String s = "";
-        Passenger item = null;
-//        if (passengerArrayList != null && !passengerArrayList.isEmpty()) {
-//            item = passengerArrayList.get(passengerArrayList.size() - 1);
-//            Arrays.sort(item.weight);
-//            System.out.println(item);
+        Passenger ifw = null;
+        Kayak imw = kayakArrayList.get(kayakArrayList.size() -1);
+        if (passengerArrayList != null && !passengerArrayList.isEmpty()) {
+            ifw = passengerArrayList.get(passengerArrayList.size() - 1);
+
+
+        }
+//        if (kayakArrayList != null && !kayakArrayList.isEmpty()) {
+//            imw = kayakArrayList.get(kayakArrayList.size() - 1);
+////            System.out.println(ifw);
 //
 //        }
-//        for (int i = 0; i < passengerArrayList.size(); i++) {
-//            int max = passengerArrayList.
-//            if ()
-//             = item.weight
-//        }
 
 
+        for (int i = imw.id; i < imw.max_weight; i++) {
+            if (ifw != null && ifw.weight <= imw.max_weight) {
+                ArrayList<PassInKayak> passInKayakArrayList = new ArrayList<PassInKayak>();
+                int id_k = imw.id;
+                int id_p1 = ifw.id;
+                int id_p2 = ifw.id;
+                passInKayakArrayList.add(new PassInKayak(id_k, id_p1, id_p2));
+                System.out.println(passengerArrayList);
+            }
 
+
+        }
     }
 }
 
