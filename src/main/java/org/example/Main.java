@@ -142,36 +142,37 @@ public class Main {
 
         }
 
-        int id_k;
-        int id_p1;
-        int p1_w = 0;
+        int id_k = imw.id;
+        int id_p1 = ifw.id;
+        int p1_w = ifw.weight;
         int id_p2 = ifw.id;
         int p2_w = ifw.weight;
-        int boatnum = kayakArrayList.size();
+        Kayak boatnum = kayakArrayList.get(0);
 
         ArrayList<PassInKayak> passInKayakArrayList = new ArrayList<PassInKayak>();
         for (int j = 0; j < passengerArrayList.size(); j++) { // перебор пассажиров
             if (ifw.weight <= imw.max_weight) {
-                id_k = imw.id;
-                id_p1 = ifw.id;
-                p1_w = ifw.weight;
+                passInKayakArrayList.add(new PassInKayak(id_k, id_p1, id_p2));
+                j++;
+                id_k++;
                 if (imw.max_weight - p1_w >= p2_w) {
                     passInKayakArrayList.add(new PassInKayak(id_k, id_p1, id_p2));
-
                 } else {
                     j++;
                 }
                 if (imw.max_weight - p1_w <= p2_w) {
-                    id_k = boatnum++;
+                        id_k++;
 
                 }
-                passInKayakArrayList.add(new PassInKayak(id_k, id_p1, id_p2));
-
             }
+
+
+//            passInKayakArrayList.add(new PassInKayak(id_k, id_p1, id_p2));
 
 
         }
         System.out.println(passInKayakArrayList);
+
     }
 }
 
