@@ -134,124 +134,54 @@ public class Main {
                                          ArrayList<Kayak> kayakArrayList) {
 
         String s = "";
-        Passenger ifw = null;
-        Kayak imw = kayakArrayList.get(kayakArrayList.size() - 1);
-        if (passengerArrayList != null && !passengerArrayList.isEmpty()) {
-            ifw = passengerArrayList.get(passengerArrayList.size() - 1);
-
-
+        int c = 0;
+        Passenger ifw =passengerArrayList.get(c);
+        Kayak imw = kayakArrayList.get(c);
+        for (int i = 0; i < passengerArrayList.size(); i++) {
+                ifw = passengerArrayList.get(i);
+        }
+        for (int i = 0; i < kayakArrayList.size(); i++) {
+                imw = kayakArrayList.get(i);
         }
 
-        int id_k = imw.id;
-        int id_p1 = ifw.id;
-        int p1_w = ifw.weight;
-        int id_p2 = ifw.id;
-        int p2_w = ifw.weight;
-        Kayak boatnum = kayakArrayList.get(0);
+//        Passenger ifw = null;
+//        Kayak imw = kayakArrayList.get(kayakArrayList.size() - 1);
+//        if (passengerArrayList != null && !passengerArrayList.isEmpty()) {
+//            ifw = passengerArrayList.get(passengerArrayList.size() - 1);
+//
+//
+//        }
+
+        int id_k;
+        int id_p1;
+        int p1_w = 0;
+        int maxwe = imw.max_weight;
+        int count = kayakArrayList.indexOf(0);
+//        int countpass = passengerArrayList.size();
+
 
         ArrayList<PassInKayak> passInKayakArrayList = new ArrayList<PassInKayak>();
-        for (int j = 0; j < passengerArrayList.size(); j++) { // перебор пассажиров
-            if (ifw.weight <= imw.max_weight) {
-                passInKayakArrayList.add(new PassInKayak(id_k, id_p1, id_p2));
-                j++;
-                id_k++;
-                if (imw.max_weight - p1_w >= p2_w) {
-                    passInKayakArrayList.add(new PassInKayak(id_k, id_p1, id_p2));
+        for (int j = 0; j < passengerArrayList.size(); j++) {
+            if (ifw.weight <= maxwe) {
+                id_k = imw.id;
+                id_p1 = ifw.id;
+                passInKayakArrayList.add(new PassInKayak(id_k, id_p1));
+                maxwe -= ifw.weight;
+                System.out.println(passInKayakArrayList);
+            } else {
+                if (kayakArrayList.size() > 0) {
+                    count++;
                 } else {
-                    j++;
+                    System.out.println(passInKayakArrayList);
+                    System.out.println("no place");
                 }
-                if (imw.max_weight - p1_w <= p2_w) {
-                        id_k++;
 
-                }
             }
-
-
-//            passInKayakArrayList.add(new PassInKayak(id_k, id_p1, id_p2));
-
+            System.out.println(count);
+//            System.out.println(j);
+            System.out.println(passInKayakArrayList);
 
         }
-        System.out.println(passInKayakArrayList);
-
     }
+
 }
-
-
-// for (int i = 0; i < rs.getInt(1); i++) {
-//        idk = rest.getInt(1);
-//        }
-
-//while (rs.next()) {
-//
-//        count++;
-//
-//
-//        if (rest.getInt(2) + rest.getInt(2) <= rs.getInt(2) && rest.getInt(1) != rest.getInt(1) ){
-//        String ins = "insert into pass_in_kayak(id_kayak, id_pass1) values(" + rs.getInt(1) + rest.getInt(1) + + rest.getInt(1) + ");";
-//        System.out.println(ins);
-//        }
-//        else {
-//        String ins = "insert into pass_in_kayak(id_kayak, id_pass1) values(" + rs.getInt(1) + rest.getInt(1) + ");";
-//        System.out.println(ins);
-//        }
-//
-//        }
-
-//try {
-//        ResultSet rs = con.createStatement().executeQuery(kayiweight);
-//        ResultSet rest = con.createStatement().executeQuery(passiweight);
-//        ResultSet countres = con.createStatement().executeQuery(countPass);
-//        ResultSet countrest = con.createStatement().executeQuery(countKayak);
-//
-//        int coukayak = countrest.getInt(1);
-//        int coupas = countres.getInt(1);
-//
-//        while (countrest.next() && countres.next() && rs.next() && rest.next()){
-//        count++;
-//
-//        for (int i = 0; i < coukayak; i++) {
-//        for (int j = 0; j < coupas; j++) {
-//        if (rs.getInt(2) > 0) {
-//        String ins = "insert into Pass_in_Kayak(id_Kayak, id_pass1) values(" + rs.getInt(1) + ", " + rest.getInt(1) + ");";
-//        System.out.println(ins);
-//
-//        }
-//        }
-//        }
-//        }
-//
-//        } catch (SQLException e) {
-//        System.out.println(e.getMessage());
-//        }
-
-
-// ResultSet resultSet = con.createStatement().executeQuery(kayak);
-//
-//        for (int i = 0; i < resultSet.getInt(1); i++) {
-//        if (resultSet.getInt(3) > 0) {
-//        if (i < 1) {
-//        int[] ins = new int[resultSet.getInt(1)];
-//        System.out.println(Arrays.toString(ins));
-//        }
-//        }
-//        }
-//
-//while (rsKayak.next() && rsPass.next()) {
-//        count++;
-//        System.out.println(count);
-//        if (count < 1) {
-//        System.out.println("id_k: " + rsKayak.getInt(1) + "id_p: " + rsPass.getInt(1));
-//        } else {
-//        for (int i = 1; i <= coukayak; i++) {
-//        for (int j = 1; j <= coupas; j++) {
-//        if (rsKayak.getInt(2) > 0) {
-//        s = "insert into Pass_in_Kayak(id_Kayak, id_pass1) values(" + rsKayak.getInt(1) + ", " + rsPass.getInt(1) + ");";
-//        System.out.println(s);
-//        con.createStatement().execute(s);
-//
-//        }
-//        }
-//        }
-//        }
-//
-//        }
