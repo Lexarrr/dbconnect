@@ -135,14 +135,18 @@ public class Main {
 
         String s = "";
         int c = 0;
-        Passenger ifw =passengerArrayList.get(c);
-        Kayak imw = kayakArrayList.get(c);
+        Passenger ifw = null;
+        Kayak imw = null;
         for (int i = 0; i < passengerArrayList.size(); i++) {
-                ifw = passengerArrayList.get(i);
+            ifw = passengerArrayList.get(i);
+            System.out.println(ifw);
         }
         for (int i = 0; i < kayakArrayList.size(); i++) {
-                imw = kayakArrayList.get(i);
+            imw = kayakArrayList.get(i);
+            System.out.println(imw);
         }
+
+
 
 //        Passenger ifw = null;
 //        Kayak imw = kayakArrayList.get(kayakArrayList.size() - 1);
@@ -156,19 +160,21 @@ public class Main {
         int id_p1;
         int p1_w = 0;
         int maxwe = imw.max_weight;
-        int count = kayakArrayList.indexOf(0);
+        int count = kayakArrayList.indexOf(1);
 //        int countpass = passengerArrayList.size();
+        int cp = 0;
 
 
         ArrayList<PassInKayak> passInKayakArrayList = new ArrayList<PassInKayak>();
         for (int j = 0; j < passengerArrayList.size(); j++) {
-            if (ifw.weight <= maxwe) {
+            if (ifw.weight <= maxwe && cp <= 2) {
                 id_k = imw.id;
                 id_p1 = ifw.id;
                 passInKayakArrayList.add(new PassInKayak(id_k, id_p1));
                 maxwe -= ifw.weight;
-                System.out.println(passInKayakArrayList);
-            } else {
+                cp++;
+            }
+            else {
                 if (kayakArrayList.size() > 0) {
                     count++;
                 } else {
