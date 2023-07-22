@@ -2,7 +2,7 @@ package org.example;
 
 public class PassInKayak {
 
-    int id_kayak;
+     int id_kayak;
     int id_pass1;
 
 

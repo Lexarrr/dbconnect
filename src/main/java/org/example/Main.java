@@ -74,7 +74,7 @@ public class Main {
 
         String pass = "SELECT id, fio, weight FROM passenger order by weight;";
         int countpassenger = 0;
-        ResultSet rsPass = null;
+        ResultSet rsPass;
 
 
         ArrayList<Passenger> passengers = null;
@@ -90,7 +90,7 @@ public class Main {
                 countpassenger++;
 
             }
-            Passenger psw = passengers.get(3);
+//            Passenger psw = passengers.get(3);
 
 
             System.out.println("Count of Passenger: " + countpassenger);
@@ -112,7 +112,7 @@ public class Main {
         try {
             rsKayak = con.createStatement().executeQuery(kayak);
 
-            kayaks = new ArrayList<Kayak>();
+            kayaks = new ArrayList<>();
             while (rsKayak.next()) {
                 int id = rsKayak.getInt(1);
                 int max_weight = rsKayak.getInt(2);
@@ -156,38 +156,33 @@ public class Main {
 //
 //        }
 
-        int id_k;
-        int id_p1;
-        int p1_w = 0;
+//        int id_k;
+//        int id_p1;
+//        int p1_w = 0;
+
+        int count = 0;
+//        Kayak id_k = null;
+//        Passenger id_p1 = null;
         int maxwe = imw.max_weight;
-        int count = kayakArrayList.indexOf(1);
 //        int countpass = passengerArrayList.size();
         int cp = 0;
 
 
-        ArrayList<PassInKayak> passInKayakArrayList = new ArrayList<PassInKayak>();
-        for (int j = 0; j < passengerArrayList.size(); j++) {
-            if (ifw.weight <= maxwe && cp <= 2) {
-                id_k = imw.id;
-                id_p1 = ifw.id;
-                passInKayakArrayList.add(new PassInKayak(id_k, id_p1));
-                maxwe -= ifw.weight;
-                cp++;
-            }
-            else {
-                if (kayakArrayList.size() > 0) {
-                    count++;
-                } else {
-                    System.out.println(passInKayakArrayList);
-                    System.out.println("no place");
+        ArrayList<PassInKayak> passInKayakArrayList = new ArrayList<>();
+        for (int j = 0; j <= passengerArrayList.size(); j++) {
+                if (ifw != null && ifw.weight <= maxwe) {
+                    imw = kayakArrayList.get(count);
+                    ifw = passengerArrayList.get(cp);
+                    passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+                    maxwe -= imw.max_weight;
+                    cp++;
                 }
+                    count++;
 
-            }
-            System.out.println(count);
-//            System.out.println(j);
-            System.out.println(passInKayakArrayList);
-
+                System.out.println(cp);
+                System.out.println(passInKayakArrayList);
         }
+//        System.out.println(passInKayakArrayList);
     }
 
 }
