@@ -175,15 +175,14 @@ public class Main {
                     ifw = passengerArrayList.get(cp);
                     passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
                 }
-                    cp++;
+                    ifw = passengerArrayList.get(cp++);
                     maxwe -= imw.max_weight;
-            if (ifw != null && ifw.weight > maxwe)
-                count++;
-            imw = kayakArrayList.get(count);
-            ifw = passengerArrayList.get(cp);
-//            maxwe = imw.max_weight;
+                if (ifw != null && ifw.weight > maxwe) {
+                    imw = kayakArrayList.get(count++);
 
-            System.out.println(cp);
+                }
+
+                System.out.println(cp);
                 System.out.println(passInKayakArrayList);
         }
 //        System.out.println(passInKayakArrayList);
