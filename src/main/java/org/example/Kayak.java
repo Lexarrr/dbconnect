@@ -8,6 +8,7 @@ public class Kayak {
     public Kayak(int id, int max_weight) {
         this.id = id;
         this.max_weight = max_weight;
+
     }
 
     @Override

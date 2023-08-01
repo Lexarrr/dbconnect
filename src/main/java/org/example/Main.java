@@ -151,26 +151,31 @@ public class Main {
 
         int maxwe = imw.max_weight;
 
+        int max_cap = 2;
+
         int cp = 0;
 
 
         ArrayList<PassInKayak> passInKayakArrayList = new ArrayList<>();
         while (cp < passengerArrayList.size()) {
-            imw = kayakArrayList.get(count);
             ifw = passengerArrayList.get(cp);
-            if (ifw != null && ifw.weight <= maxwe && cp <= 2) {
-                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
-                maxwe -= ifw.weight;
-            } else {
-                count++;
-                imw = kayakArrayList.get(count);
-                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
-                maxwe = imw.max_weight;
-            }
-            cp++;
+            imw = kayakArrayList.get(count);
+                if (ifw != null && ifw.weight <= maxwe && max_cap != 0) {
+                    passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+                    maxwe -= ifw.weight;
+                    max_cap--;
+                    cp++;
+                } else {
+                    count++;
+                    imw = kayakArrayList.get(count);
+                    maxwe = imw.max_weight;
+                    max_cap = 2;
+                }
+
+
+
         }
         System.out.println(passInKayakArrayList);
-
 
 //        while (cp < passengerArrayList.size()) {
 //            Passenger p1 = passengerArrayList.get(cp);
@@ -200,7 +205,6 @@ public class Main {
 //            }
 //            System.out.println(passInKayakArrayList);
 //        }
-
 
 
     }
