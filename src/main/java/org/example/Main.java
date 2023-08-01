@@ -160,53 +160,18 @@ public class Main {
         while (cp < passengerArrayList.size()) {
             ifw = passengerArrayList.get(cp);
             imw = kayakArrayList.get(count);
-                if (ifw != null && ifw.weight <= maxwe && max_cap != 0) {
-                    passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
-                    maxwe -= ifw.weight;
-                    max_cap--;
-                    cp++;
-                } else {
-                    count++;
-                    imw = kayakArrayList.get(count);
-                    maxwe = imw.max_weight;
-                    max_cap = 2;
-                }
-
-
-
+            if (ifw != null && ifw.weight <= maxwe && max_cap != 0) {
+                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+                maxwe -= ifw.weight;
+                max_cap--;
+                cp++;
+            } else {
+                count++;
+                imw = kayakArrayList.get(count);
+                maxwe = imw.max_weight;
+                max_cap = 2;
+            }
         }
         System.out.println(passInKayakArrayList);
-
-//        while (cp < passengerArrayList.size()) {
-//            Passenger p1 = passengerArrayList.get(cp);
-//            Passenger p2 = passengerArrayList.get(cp++);
-//            if (p2.weight + p1.weight <= maxwe) {
-//                imw = kayakArrayList.get(count);
-//                passInKayakArrayList.add(new PassInKayak(imw.id, p1.id));
-//                passInKayakArrayList.add(new PassInKayak(imw.id, p2.id));
-//                count++;
-//                cp++;
-//            } else {
-//                cp++;
-//            }
-//
-//        }
-
-
-//        for (int i = 0; i < passengerArrayList.size(); i++) {
-//            Passenger p = passengerArrayList.get(i);
-//            imw = kayakArrayList.get(count);
-//            if (p.weight <= maxwe && p.id < 2){
-//                passInKayakArrayList.add(new PassInKayak(imw.id, p.id));
-//                maxwe -= p.weight;
-//            }
-//            else {
-//                count++;
-//            }
-//            System.out.println(passInKayakArrayList);
-//        }
-
-
     }
-
 }
