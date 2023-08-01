@@ -21,6 +21,8 @@ public class Main {
 //        callListOfPass(con);
 //        callListOfKayak(con);
         insertPassInKayak(con, callListOfPass(con), callListOfKayak(con));
+
+
     }
 
     public static Connection connectToDB(String ad, String us, String pw) {
@@ -129,9 +131,7 @@ public class Main {
         return kayaks;
     }
 
-    public static void insertPassInKayak(Connection con,
-                                         ArrayList<Passenger> passengerArrayList,
-                                         ArrayList<Kayak> kayakArrayList) {
+    public static void insertPassInKayak(Connection con, ArrayList<Passenger> passengerArrayList, ArrayList<Kayak> kayakArrayList) {
 
         String s = "";
         int c = 0;
@@ -147,51 +147,62 @@ public class Main {
         }
 
 
-
-//        Passenger ifw = null;
-//        Kayak imw = kayakArrayList.get(kayakArrayList.size() - 1);
-//        if (passengerArrayList != null && !passengerArrayList.isEmpty()) {
-//            ifw = passengerArrayList.get(passengerArrayList.size() - 1);
-//
-//
-//        }
-
-//        int id_k;
-//        int id_p1;
-//        int p1_w = 0;
-
         int count = 0;
-//        Kayak id_k = null;
-//        Passenger id_p1 = null;
+
         int maxwe = imw.max_weight;
-//        int countpass = passengerArrayList.size();
+
         int cp = 0;
 
 
         ArrayList<PassInKayak> passInKayakArrayList = new ArrayList<>();
-        for (int j = 0; j < passengerArrayList.size(); j++) {
-                if (ifw != null && ifw.weight <= maxwe && count < 2) {
-                    imw = kayakArrayList.get(count);
-                    ifw = passengerArrayList.get(cp);
-                    maxwe -= imw.max_weight;
-                    passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
-                    cp++;
-                    ifw = passengerArrayList.get(cp);
-                }
-
-
-                if (ifw != null && ifw.weight > maxwe) {
-                    imw = kayakArrayList.get(count++);
-                    ifw = passengerArrayList.get(cp);
-                }
-                cp++;
-//            ifw = passengerArrayList.get(cp);
+        while (cp < passengerArrayList.size()) {
+            imw = kayakArrayList.get(count);
+            ifw = passengerArrayList.get(cp);
+            if (ifw != null && ifw.weight <= maxwe && cp <= 2) {
                 passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
-                System.out.println(cp);
-                System.out.println(passInKayakArrayList);
+                maxwe -= ifw.weight;
+            } else {
+                count++;
+                imw = kayakArrayList.get(count);
+                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+                maxwe = imw.max_weight;
+            }
+            cp++;
         }
+        System.out.println(passInKayakArrayList);
 
-//        System.out.println(passInKayakArrayList);
+
+//        while (cp < passengerArrayList.size()) {
+//            Passenger p1 = passengerArrayList.get(cp);
+//            Passenger p2 = passengerArrayList.get(cp++);
+//            if (p2.weight + p1.weight <= maxwe) {
+//                imw = kayakArrayList.get(count);
+//                passInKayakArrayList.add(new PassInKayak(imw.id, p1.id));
+//                passInKayakArrayList.add(new PassInKayak(imw.id, p2.id));
+//                count++;
+//                cp++;
+//            } else {
+//                cp++;
+//            }
+//
+//        }
+
+
+//        for (int i = 0; i < passengerArrayList.size(); i++) {
+//            Passenger p = passengerArrayList.get(i);
+//            imw = kayakArrayList.get(count);
+//            if (p.weight <= maxwe && p.id < 2){
+//                passInKayakArrayList.add(new PassInKayak(imw.id, p.id));
+//                maxwe -= p.weight;
+//            }
+//            else {
+//                count++;
+//            }
+//            System.out.println(passInKayakArrayList);
+//        }
+
+
+
     }
 
 }
