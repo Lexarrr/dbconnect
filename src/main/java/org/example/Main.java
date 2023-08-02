@@ -179,19 +179,18 @@ public class Main {
         for (int i = 0; i < passengerArrayList.size(); i++) {
             ifw = passengerArrayList.get(v);
             ifw2 = passengerArrayList.get(i);
-                imw = kayakArrayList.get(count);
-                if (ifw2.weight + ifw.weight <= imw.max_weight) {
-                    passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
-                    passInKayakArrayList.add(new PassInKayak(imw.id, ifw2.id));
-//                    Passenger b = passengerArrayList.remove(i);
-                } else {
-                    passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+            imw = kayakArrayList.get(count);
+            if (ifw2.weight + ifw.weight <= imw.max_weight) {
+                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+                passInKayakArrayList.add(new PassInKayak(imw.id, ifw2.id));
+                passengerArrayList.remove(ifw2);
+            } else {
+                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
 
-                }
-//                Passenger a = passengerArrayList.remove(v);
-
-                count++;
-                v--;
+            }
+            passengerArrayList.remove(ifw);
+            count++;
+            v--;
 
 
         }
