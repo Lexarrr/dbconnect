@@ -183,12 +183,12 @@ public class Main {
             if (ifw2.weight + ifw.weight <= imw.max_weight) {
                 passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
                 passInKayakArrayList.add(new PassInKayak(imw.id, ifw2.id));
-                passengerArrayList.remove(ifw2);
+//                passengerArrayList.remove(i);
             } else {
                 passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
 
             }
-            passengerArrayList.remove(ifw);
+//            passengerArrayList.remove(v);
             count++;
             v--;
 
