@@ -175,23 +175,28 @@ public class Main {
 //        System.out.println(passInKayakArrayList);
 
         int v = passengerArrayList.size() - 1;
-
+        Passenger ifw2;
         for (int i = 0; i < passengerArrayList.size(); i++) {
             ifw = passengerArrayList.get(v);
-            Passenger ifw2 = passengerArrayList.get(i);
-            imw = kayakArrayList.get(count);
-            if (ifw2.weight + ifw.weight <= maxwe){
-                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
-                passInKayakArrayList.add(new PassInKayak(imw.id, ifw2.id));
-            } else {
-                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+            ifw2 = passengerArrayList.get(i);
+                imw = kayakArrayList.get(count);
+                if (ifw2.weight + ifw.weight <= imw.max_weight) {
+                    passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+                    passInKayakArrayList.add(new PassInKayak(imw.id, ifw2.id));
+//                    Passenger b = passengerArrayList.remove(i);
+                } else {
+                    passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
 
-            }
-            count++;
-            v--;
+                }
+//                Passenger a = passengerArrayList.remove(v);
+
+                count++;
+                v--;
+
 
         }
         System.out.println(passInKayakArrayList);
 
     }
+
 }
