@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static java.lang.Math.abs;
 
 public class Main {
 
@@ -83,7 +82,7 @@ public class Main {
         try {
             rsPass = con.createStatement().executeQuery(pass);
 
-            passengers = new ArrayList<Passenger>();
+            passengers = new ArrayList<>();
             while (rsPass.next()) {
                 int id = rsPass.getInt(1);
                 String name = rsPass.getString(2);
@@ -92,8 +91,6 @@ public class Main {
                 countpassenger++;
 
             }
-//            Passenger psw = passengers.get(3);
-
 
             System.out.println("Count of Passenger: " + countpassenger);
             System.out.println(passengers);
@@ -109,7 +106,7 @@ public class Main {
         String kayak = "SELECT id, max_weight FROM kayak where max_weight > 0 order by max_weight;";
         int countkayak = 0;
 
-        ResultSet rsKayak = null;
+        ResultSet rsKayak;
         ArrayList<Kayak> kayaks = null;
         try {
             rsKayak = con.createStatement().executeQuery(kayak);
@@ -133,9 +130,16 @@ public class Main {
 
     public static void insertPassInKayak(Connection con, ArrayList<Passenger> passengerArrayList, ArrayList<Kayak> kayakArrayList) {
 
-        String s = "";
-        int c = 0;
 
+        String s;
+        String t;
+        int count = 0;
+        int v = passengerArrayList.size() - 1;
+        int i = 0;
+        Kayak imw = kayakArrayList.get(count);
+        Passenger ifw = passengerArrayList.get(v);
+        Passenger ifw2 = passengerArrayList.get(i);
+        int vesdvuhc;
 
 //        for (int i = 0; i < passengerArrayList.size(); i++) {
 //            ifw = passengerArrayList.get(i);
@@ -147,16 +151,65 @@ public class Main {
 //        }
 
 
-        int count = 0;
-
-//        int maxwe = imw.max_weight;
-
-        int max_cap = 2;
-
-        int cp = 0;
-
-
         ArrayList<PassInKayak> passInKayakArrayList = new ArrayList<>();
+
+        while (i <= v) {
+            ifw = passengerArrayList.get(v);
+            ifw2 = passengerArrayList.get(i);
+            vesdvuhc = ifw.weight + ifw2.weight;
+
+            if (vesdvuhc <= imw.max_weight) {
+                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+                passInKayakArrayList.add(new PassInKayak(imw.id, ifw2.id));
+                i++;
+                v--;
+                s = "insert into pass_in_kayak(id_kayak, id_pass1) values('" + imw.id + "', " + ifw.id + ");";
+                t = "insert into pass_in_kayak(id_kayak, id_pass1) values('" + imw.id + "', " + ifw2.id + ");";
+                try {
+                    con.createStatement().execute(s);
+                    con.createStatement().execute(t);
+                }
+                catch (SQLException e) {
+                    System.out.println("the " + s + " failed to execute");
+                    System.out.println("the " + t + " failed to execute");
+                    System.out.println(e.getMessage());
+                }
+            }
+            if (count == kayakArrayList.size() - 1) {
+                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+                v--;
+                s = "insert into pass_in_kayak(id_kayak, id_pass1) values('" + imw.id + "', " + ifw.id + ");";
+                try {
+                    con.createStatement().execute(s);
+                }
+                catch (SQLException e) {
+                    System.out.println("the " + s + " failed to execute");
+                    System.out.println(e.getMessage());
+                }
+            }
+            count++;
+            imw = kayakArrayList.get(count);
+
+
+
+
+
+
+        }
+
+        System.out.println(passInKayakArrayList);
+
+
+    }
+}
+
+
+
+
+
+
+
+
 //        while (cp < passengerArrayList.size()) {
 //            ifw = passengerArrayList.get(cp);
 //            imw = kayakArrayList.get(count);
@@ -195,34 +248,3 @@ public class Main {
 //
 //        }
 //        System.out.println(passInKayakArrayList);
-
-        int v = passengerArrayList.size() - 1;
-        int i = 0;
-        Kayak imw = kayakArrayList.get(count);
-        Passenger ifw = passengerArrayList.get(v);
-        Passenger ifw2 = passengerArrayList.get(i);
-        int vesdvuhc = ifw.weight + ifw2.weight;
-        while (i <= v) {
-            ifw = passengerArrayList.get(v);
-            ifw2 = passengerArrayList.get(i);
-            vesdvuhc = ifw.weight + ifw2.weight;
-
-            if (vesdvuhc <= imw.max_weight) {
-                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
-                passInKayakArrayList.add(new PassInKayak(imw.id, ifw2.id));
-                i++;
-                v--;
-
-            }
-            if (count == kayakArrayList.size()-1){
-                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
-                v--;
-            }
-            count++;
-            imw = kayakArrayList.get(count);
-
-        }
-        System.out.println(passInKayakArrayList);
-    }
-
-}
