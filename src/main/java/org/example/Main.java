@@ -135,21 +135,21 @@ public class Main {
 
         String s = "";
         int c = 0;
-        Passenger ifw = null;
-        Kayak imw = null;
-        for (int i = 0; i < passengerArrayList.size(); i++) {
-            ifw = passengerArrayList.get(i);
-            System.out.println(ifw);
-        }
-        for (int i = 0; i < kayakArrayList.size(); i++) {
-            imw = kayakArrayList.get(i);
-            System.out.println(imw);
-        }
+
+
+//        for (int i = 0; i < passengerArrayList.size(); i++) {
+//            ifw = passengerArrayList.get(i);
+//            System.out.println(ifw);
+//        }
+//        for (int i = 0; i < kayakArrayList.size(); i++) {
+//            imw = kayakArrayList.get(i);
+//            System.out.println(imw);
+//        }
 
 
         int count = 0;
 
-        int maxwe = imw.max_weight;
+//        int maxwe = imw.max_weight;
 
         int max_cap = 2;
 
@@ -174,28 +174,55 @@ public class Main {
 //        }
 //        System.out.println(passInKayakArrayList);
 
+//        int v = passengerArrayList.size() - 1;
+//        Passenger ifw2;
+//        for (int i = 0; i < passengerArrayList.size(); i++) {
+//            ifw = passengerArrayList.get(v);
+//            ifw2 = passengerArrayList.get(i);
+//            imw = kayakArrayList.get(count);
+//            if (ifw2.weight + ifw.weight <= imw.max_weight) {
+//                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+//                passInKayakArrayList.add(new PassInKayak(imw.id, ifw2.id));
+////                passengerArrayList.remove(i);
+//            } else {
+//                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+//
+//            }
+////            passengerArrayList.remove(v);
+//            count++;
+//            v--;
+//
+//
+//        }
+//        System.out.println(passInKayakArrayList);
+
         int v = passengerArrayList.size() - 1;
-        Passenger ifw2;
-        for (int i = 0; i < passengerArrayList.size(); i++) {
+        int i = 0;
+        Kayak imw = kayakArrayList.get(count);
+        Passenger ifw = passengerArrayList.get(v);
+        Passenger ifw2 = passengerArrayList.get(i);
+        int vesdvuhc = ifw.weight + ifw2.weight;
+        while (i <= v) {
             ifw = passengerArrayList.get(v);
             ifw2 = passengerArrayList.get(i);
-            imw = kayakArrayList.get(count);
-            if (ifw2.weight + ifw.weight <= imw.max_weight) {
+            vesdvuhc = ifw.weight + ifw2.weight;
+
+            if (vesdvuhc <= imw.max_weight) {
                 passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
                 passInKayakArrayList.add(new PassInKayak(imw.id, ifw2.id));
-//                passengerArrayList.remove(i);
-            } else {
-                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+                i++;
+                v--;
 
             }
-//            passengerArrayList.remove(v);
+            if (count == kayakArrayList.size()-1){
+                passInKayakArrayList.add(new PassInKayak(imw.id, ifw.id));
+                v--;
+            }
             count++;
-            v--;
-
+            imw = kayakArrayList.get(count);
 
         }
         System.out.println(passInKayakArrayList);
-
     }
 
 }
